@@ -582,9 +582,6 @@ async function sendDataToSheets(dataArray) {
     }
 }
 
-// --- 既存のコードの中での使い方（例） ---
-// ボタンクリックやフォーム送信のイベント内で呼び出す
-const targetData = ['ユーザーA', '12', '18920'];
 window.sendDataToSheets = sendDataToSheets;
 
 //sendDataToSheets(['ユーザーA', '12', '18920'])
