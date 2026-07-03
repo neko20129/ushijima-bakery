@@ -1114,11 +1114,11 @@ function clearData() {
     save();
 };
 
-const neko20129 = 'neko20129';
-function debug(e) {
+function library1(e) {
     if (e === neko20129) {
-        money = 10**128;
-        level = 10**10**10;
+        money = 10**32;
+        level = 10**16;
+        levelUp = 10**10
         upgradeDisplay[1][1] = 10**10**10;
         upgradeDisplay[2][1] = 10**10**10;
     }
