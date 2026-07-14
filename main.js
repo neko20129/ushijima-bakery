@@ -1,4 +1,3 @@
-
 //変数
 const log = document.getElementById('log-range');
 
@@ -126,30 +125,6 @@ const upgradeN1 = document.getElementById('upgrade-need1');
 const upgradeN2 = document.getElementById('upgrade-need2');
 const upgradeN3 = document.getElementById('upgrade-need3');
 
-const rank1 = document.getElementById('rank1');
-const rank2 = document.getElementById('rank2');
-const rank3 = document.getElementById('rank3');
-const rank4 = document.getElementById('rank4');
-const rank5 = document.getElementById('rank5');
-
-const name1 = document.getElementById('name1');
-const name2 = document.getElementById('name2');
-const name3 = document.getElementById('name3');
-const name4 = document.getElementById('name4');
-const name5 = document.getElementById('name5');
-
-const level1 = document.getElementById('level1');
-const level2 = document.getElementById('level2');
-const level3 = document.getElementById('level3');
-const level4 = document.getElementById('level4');
-const level5 = document.getElementById('level5');
-
-const money1 = document.getElementById('money1');
-const money2 = document.getElementById('money2');
-const money3 = document.getElementById('money3');
-const money4 = document.getElementById('money4');
-const money5 = document.getElementById('money5');
-
 const saveElm = document.getElementById('save');
 const loadElm = document.getElementById('load');
 
@@ -162,6 +137,9 @@ let sold = 0;
 let levelUp = 4;
 let buyPage = 1;
 let makePage = 1;
+let profit = 0;
+
+let bakeryName
 
 //配列
 //buy = [材料名],[値段],[画像ファイル],[持っている数],[解放レベル]
@@ -207,20 +185,24 @@ function save() {
   localStorage.setItem('levelKey',level);
   localStorage.setItem('soldKey',sold);
   localStorage.setItem('levelUpKey',levelUp);
+  localStorage.setItem('profitKey',profit);
   localStorage.setItem('buyDisplayKey',JSON.stringify(buyDisplay));
   localStorage.setItem('makeDisplayKey',JSON.stringify(makeDisplay));
   localStorage.setItem('upgradeDisplayKey',JSON.stringify(upgradeDisplay));
+  dataForSend();
 }
 
 function load() {
-  if (localStorage.getItem('moneyKey') && localStorage.getItem('levelKey') && localStorage.getItem('soldKey') && localStorage.getItem('levelUpKey') && localStorage.getItem('buyDisplayKey') && localStorage.getItem('makeDisplayKey') && localStorage.getItem('upgradeDisplayKey')) {
+  if (localStorage.getItem('moneyKey') && localStorage.getItem('levelKey') && localStorage.getItem('soldKey') && localStorage.getItem('levelUpKey') && localStorage.getItem('profitKey') &&localStorage.getItem('buyDisplayKey') && localStorage.getItem('makeDisplayKey') && localStorage.getItem('upgradeDisplayKey')) {
     money = JSON.parse(localStorage.getItem('moneyKey'));
     level = JSON.parse(localStorage.getItem('levelKey'));
     sold = JSON.parse(localStorage.getItem('soldKey'));
     levelUp = JSON.parse(localStorage.getItem('levelUpKey'));
+    profit = JSON.parse(localStorage.getItem('profitKey'))
     buyDisplay = JSON.parse(localStorage.getItem('buyDisplayKey'));
     makeDisplay = JSON.parse(localStorage.getItem('makeDisplayKey'));
     upgradeDisplay = JSON.parse(localStorage.getItem('upgradeDisplayKey'));
+    dataForSend();
   } else {
       clearData();
   }
@@ -519,6 +501,7 @@ const workerUrl = URL.createObjectURL(blob);
 
 const myWorker = new Worker(workerUrl);
 let timer = 0;
+let timeToExecution = 300;
 myWorker.onmessage = function(e) {
   if (e.data === 'tick') {
         reloadOfDisplay();
@@ -537,7 +520,7 @@ myWorker.onmessage = function(e) {
                 if (makeDisplay[1][6] > 0 || makeDisplay[2][6] > 0 || makeDisplay[3][6] > 0 || makeDisplay[4][6] >
                     0|| makeDisplay[5][6] > 0 || makeDisplay[6][6] > 0 || makeDisplay[7][6] > 0 || makeDisplay[8][6] > 0 || makeDisplay[9][6] > 0) {
                     comeBuyer();
-                    timer = 300 - upgradeDisplay[1][1] * 3;
+                    timer = 200 - upgradeDisplay[1][1] * 3;
                 }
             }
         } else {
@@ -549,21 +532,20 @@ myWorker.onmessage = function(e) {
             sold = sold - levelUp
             levelUp = Math.floor(levelUp * 2);
             addMessage('レベルアップ！', 1)
-        } 
+        }
     }
 };
 
 myWorker.postMessage('start');
 
-//関数
-
 // GASへデータを送信する関数
 async function sendDataToSheets(dataArray) {
-    const gasUrl = 'https://script.google.com/a/macros/matsubaramanabi.e-kokoro.ed.jp/s/AKfycbxBoq6ZrJdeMehkGc91JdtxQl8Th9xCNcn40ltAQia-0WQhpATHTPnQVsiQ_e6xsUV1Dw/exec'; 
+    const gasUrl = 'https://script.google.com/a/macros/matsubaramanabi.e-kokoro.ed.jp/s/AKfycbx2p7wn-I9fp5UJRhiPpT1OiTrDiq9GPx-Jir7F29rxFhf_mJdz5wrDwmcSTb9BjNs0MQ/exec'; 
 
     try {
         const response = await fetch(gasUrl, {
             method: 'POST',
+            mode: 'cors',
             credentials: 'include',  //情報を含める
             headers: {
                 'Content-Type': 'text/plain', //text/plainにする
@@ -580,27 +562,8 @@ async function sendDataToSheets(dataArray) {
     } catch (error) {
         console.error('通信エラーが発生しました:', error);
     }
-}
 
-window.sendDataToSheets = sendDataToSheets;
-
-//sendDataToSheets(['ユーザーA', '12', '18920'])
-
-function AaD(item, compare) { //Add and Delete
-    let diff
-    if (item.length < compare.length) {
-        diff = compare.length - item.length;
-        for (let i = 0; i < compare.length; i++) {
-            if (compare[i+1] && item[i+1]) {
-                console.log('許容: ' + compare.length + '/' + i)
-            } else {
-                item.push(compare[i+1]);
-                console.log('追加:' + compare[i+1]);
-            }
-        }
-    }
-    
-    return
+    console.log('sent');
 }
 
 function addMessage(message,color) {
@@ -1068,6 +1031,7 @@ function comeBuyer() {
     makeDisplay[willbuytype][6] = makeDisplay[willbuytype][6] - willbuynum;
     money = money + makeDisplay[willbuytype][4] * willbuynum + upgradeDisplay[3][1] * 80 - 80;
     sold = sold + willbuynum;
+    profit = profit*1 + makeDisplay[willbuytype][4] * willbuynum + upgradeDisplay[3][1] * 80 - 80;
     save();
 }
 
@@ -1122,4 +1086,26 @@ function library1(e) {
         upgradeDisplay[1][1] = 10**10**10;
         upgradeDisplay[2][1] = 10**10**10;
     }
+}
+
+function dataForSend() {
+    let uniqueId = localStorage.getItem('uniqueId');
+    if (!uniqueId) {
+        uniqueId = Math.random().toString(36).slice(-16)
+        localStorage.setItem('uniqueId', uniqueId);
+    }
+
+    bakeryName = localStorage.getItem('bakeryName');
+    if (!bakeryName) {
+        bakeryName = prompt('【突然すみません！】\nあなたのベーカリーの名前はなんですか？\n(設定>ベーカリー名 から後で変更できます)');
+        localStorage.setItem('bakeryName', bakeryName);
+    }
+
+    let all = 0;
+
+    for (let i = 1; i < makeDisplay.length; i++) {
+        all = all*1 + makeDisplay[i][6]*1;
+    }
+    sendDataToSheets([uniqueId, bakeryName, level, money, profit, all]);
+    console.log(uniqueId + ',' + bakeryName + ',' + level + ',' + money + ',' + profit + ',' + all + 'を送信した')
 }
