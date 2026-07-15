@@ -1124,6 +1124,7 @@ function dataForSend() {
     console.log(uniqueId + ',' + bakeryName + ',' + level + ',' + money + ',' + profit + ',' + all + 'を送信した')
 }
 
+window.dataForSend = dataForSend();
 window.addEventListener('load', () => {
     dataForSend();
 });
