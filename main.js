@@ -540,7 +540,7 @@ myWorker.postMessage('start');
 
 // GASへデータを送信する関数
 async function sendDataToSheets(dataArray) {
-    const gasUrl = 'https://script.google.com/a/macros/matsubaramanabi.e-kokoro.ed.jp/s/AKfycbx2p7wn-I9fp5UJRhiPpT1OiTrDiq9GPx-Jir7F29rxFhf_mJdz5wrDwmcSTb9BjNs0MQ/exec'; 
+    const gasUrl = 'https://script.google.com/a/macros/matsubaramanabi.e-kokoro.ed.jp/s/AKfycbzzivUqln-A48s2cRT0R6ph7TN0yfDzDt6rdlT3fDxmWjzcEHzjpibbImMDVSCz5PKB/exec'; 
 
     try {
         const response = await fetch(gasUrl, {
