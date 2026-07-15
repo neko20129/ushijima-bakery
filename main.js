@@ -1109,3 +1109,7 @@ function dataForSend() {
     sendDataToSheets([uniqueId, bakeryName, level, money, profit, all]);
     console.log(uniqueId + ',' + bakeryName + ',' + level + ',' + money + ',' + profit + ',' + all + 'を送信した')
 }
+
+window.addEventListener('load', () => {
+    dataForSend();
+});
