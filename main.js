@@ -188,6 +188,7 @@ function save() {
   localStorage.setItem('soldKey',sold);
   localStorage.setItem('levelUpKey',levelUp);
   localStorage.setItem('profitKey',profit);
+  localStorage.setItem('bakerynameKey',bakeryName)
   localStorage.setItem('buyDisplayKey',JSON.stringify(buyDisplay));
   localStorage.setItem('makeDisplayKey',JSON.stringify(makeDisplay));
   localStorage.setItem('upgradeDisplayKey',JSON.stringify(upgradeDisplay));
@@ -200,7 +201,8 @@ function load() {
     level = JSON.parse(localStorage.getItem('levelKey'));
     sold = JSON.parse(localStorage.getItem('soldKey'));
     levelUp = JSON.parse(localStorage.getItem('levelUpKey'));
-    profit = JSON.parse(localStorage.getItem('profitKey'))
+    profit = JSON.parse(localStorage.getItem('profitKey'));
+    bakeryName = JSON.parse(localStorage.getItem('bakerynameKey'))
     buyDisplay = JSON.parse(localStorage.getItem('buyDisplayKey'));
     makeDisplay = JSON.parse(localStorage.getItem('makeDisplayKey'));
     upgradeDisplay = JSON.parse(localStorage.getItem('upgradeDisplayKey'));
