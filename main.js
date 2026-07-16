@@ -1,4 +1,4 @@
-console.log('これはv3.2bata0.11です');
+console.log('これはv3.2bata0.12です');
 
 //変数
 const log = document.getElementById('log-range');
@@ -202,7 +202,7 @@ function load() {
     sold = JSON.parse(localStorage.getItem('soldKey'));
     levelUp = JSON.parse(localStorage.getItem('levelUpKey'));
     profit = JSON.parse(localStorage.getItem('profitKey'));
-    bakeryName = JSON.parse(localStorage.getItem('bakerynameKey'))
+    bakeryName = JSON.parse(localStorage.getItem('bakeryNameKey'))
     buyDisplay = JSON.parse(localStorage.getItem('buyDisplayKey'));
     makeDisplay = JSON.parse(localStorage.getItem('makeDisplayKey'));
     upgradeDisplay = JSON.parse(localStorage.getItem('upgradeDisplayKey'));
@@ -1128,10 +1128,10 @@ function dataForSend() {
         localStorage.setItem('uniqueId', uniqueId);
     }
 
-    bakeryName = localStorage.getItem('bakeryName');
+    bakeryName = localStorage.getItem('bakeryNameKey');
     if (!bakeryName) {
         bakeryName = prompt('【突然すみません！】\nあなたのベーカリーの名前はなんですか？\n(設定>ベーカリー名 から後で変更できます)');
-        localStorage.setItem('bakeryName', bakeryName);
+        localStorage.setItem('bakeryNameKey', bakeryName);
     }
 
     let all = 0;
