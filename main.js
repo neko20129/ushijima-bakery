@@ -458,7 +458,36 @@ upgradeB3.addEventListener('click', () => {
 
 saveElm.addEventListener('click', async () => {
     console.log('セーブ')
-    const saveData = { money, level, sold, levelUp, buyDisplay, makeDisplay, upgradeDisplay };
+    const buyDispHas = [
+        buyDisplay[1][3],
+        buyDisplay[2][3],
+        buyDisplay[3][3],
+        buyDisplay[4][3],
+        buyDisplay[5][3],
+        buyDisplay[6][3],
+        buyDisplay[7][3],
+        buyDisplay[8][3],
+        buyDisplay[9][3],
+        buyDisplay[10][3]
+    ]
+    const makeDispHas = [
+        makeDisplay[1][6],
+        makeDisplay[2][6],
+        makeDisplay[3][6],
+        makeDisplay[4][6],
+        makeDisplay[5][6],
+        makeDisplay[6][6],
+        makeDisplay[7][6],
+        makeDisplay[8][6],
+        makeDisplay[9][6]
+    ]
+    const upgradeDispHas = [
+        upgradeDisplay[1][1],
+        upgradeDisplay[2][1],
+        upgradeDisplay[3][1]
+    ]
+
+    const saveData = { money, level, sold, levelUp, buyDispHas, makeDispHas, upgradeDispHas };
     console.log(saveData);
     const compressed = JSON.stringify(saveData);
     await navigator.clipboard.writeText(compressed);
@@ -467,21 +496,8 @@ saveElm.addEventListener('click', async () => {
 });
 
 loadElm.addEventListener('click', async () => {
-  const inputVal = prompt('セーブデータを入力');
+  const input = prompt('セーブデータを入力');
 
-    try {
-        const loadedData = JSON.parse(inputVal);
-        console.log(loadedData);
-
-        loadedData.buyDisplay = await AaD(loadedData.buyDisplay, buyDisplay);
-        loadedData.makeDisplay = await AaD(loadedData.makeDisplay, makeDisplay);
-        loadedData.upgradeDisplay = await AaD(loadedData.upgradeDisplay, upgradeDisplay);
-
-        ({ money, level, sold, levelUp, buyDisplay, makeDisplay, upgradeDisplay } = loadedData);
-        alert('復元成功！');
-    } catch (err) {
-        alert('データが破損しているか、正しくありません。');
-    }
 });
 
 document.getElementById('ranking').addEventListener('click', () => {if (confirm('別のランキングページが新しいタブで開かれます\nよろしいですか？')) window.open('https://docs.google.com/spreadsheets/d/1q726CiPRmO2ZD2cUisHE-UDBfvba7ikVEhZSwUGeTEM/edit?gid=0#gid=0', '_blank', 'noopener,noreferrer')});
