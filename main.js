@@ -1,4 +1,4 @@
-console.log('これはv3.2bata0.1です');
+console.log('これはv3.2bata0.11です');
 
 //変数
 const log = document.getElementById('log-range');
