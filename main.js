@@ -574,7 +574,6 @@ async function sendDataToSheets(dataArray) {
             showSuccessScreen(); // 成功画面を表示する関数（任意）
         })
         .catch(error => {
-            // Failed to fetch エラーはここでキャッチされます
             if (error.message === 'Failed to fetch') {
                 console.log('送信しましたが、リダイレクトがブロックされました');
                 showSuccessScreen(); // 画面上は「送信完了」にする
