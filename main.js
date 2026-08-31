@@ -501,8 +501,12 @@ saveElm.addEventListener('click', async () => {
 
 loadElm.addEventListener('click', async () => {
   const input = prompt('セーブデータを入力');
-
 });
+
+document.getElementById('change-name').addEventListener('click', () => {
+    const prom = prompt('あなたのベーカリーの名前はなんですか？');
+    if (prom) bakeryName = prom;
+})
 
 document.getElementById('ranking').addEventListener('click', () => {if (confirm('別のランキングページが新しいタブで開かれます\nよろしいですか？')) window.open('https://docs.google.com/spreadsheets/d/1q726CiPRmO2ZD2cUisHE-UDBfvba7ikVEhZSwUGeTEM/edit?gid=0#gid=0', '_blank', 'noopener,noreferrer')});
 //ゲームループ
