@@ -1,4 +1,4 @@
-console.log('これはv3.2bata0.12です');
+console.log('これは ofline-version v3.2 -- v0.0bata です');
 
 //変数
 const log = document.getElementById('log-range');
@@ -577,14 +577,11 @@ async function sendDataToSheets(dataArray) {
             body: JSON.stringify(dataArray) // 送りたいデータをJSON文字列に変換
         })
         .then(response => {
-            // もし奇跡的にエラーなく戻ってきた場合
             console.log('送信成功！');
-            showSuccessScreen(); // 成功画面を表示する関数（任意）
         })
         .catch(error => {
             if (error.message === 'Failed to fetch') {
                 console.log('送信しましたが、リダイレクトがブロックされました');
-                showSuccessScreen(); // 画面上は「送信完了」にする
             } else {
                 console.error('エラー:', error);
             }
