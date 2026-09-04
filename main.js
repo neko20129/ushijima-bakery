@@ -1,6 +1,6 @@
 console.log('これは ofline-version v3.2 -- v0.0bata です');
 
-//変数
+(function () {
 const log = document.getElementById('log-range');
 
 const levelElm = document.getElementById('level');
@@ -1148,3 +1148,5 @@ window.dataForSend = dataForSend();
 window.addEventListener('load', () => {
     dataForSend();
 });
+
+})();
