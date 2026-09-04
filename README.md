@@ -1,5 +1,6 @@
 https://neko20129.github.io/ushijima-bakery-v3.1/
-https://x.gd/ushijimapan
+
+Download: 
 
 現在の最新バージョンは ver.3.1です
 
